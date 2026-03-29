@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1, 
+    "nome": "Expresso Latte da Paz", 
+    "preco": 7.50, 
+    "desc": "O delicioso café Latte tradicional de nossa cafeteria", 
+    "img": "CafeLatte",
+    "tags": ["leite", "suave", "doce", "cremoso"]
+  },
+  {
+    "id": 3, 
+    "nome": "Yhoshimura Blend", 
+    "preco": 4.00, 
+    "desc": "O café pacífico leve e suave, do jeito que o povo ama", 
+    "img": "CafeTradicional",
+    "tags": ["suave", "filtrado", "leve", "calmo"]
+  },
+  {
+    "id": 5, 
+    "nome": "Drink Tea Ghoul", 
+    "preco": 20.00, 
+    "desc": "O tradicional drink de chá mate de limão, misturado com morango e gelo", 
+    "img": "DrinkTeaGhoul",
+    "tags": ["gelado", "fruta", "limao", "morango", "refrescante", "ice"]
+  },
+  {
+    "id": 6, 
+    "nome": "Black Goat", 
+    "preco": 5.00, 
+    "desc": "O café forte e sem açúcar, do jeito tradicional", 
+    "img": "CafeTradicional",
+    "tags": ["forte", "amargo", "preto", "intenso", "sem acucar"]
+  }
+]

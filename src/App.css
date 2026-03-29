@@ -1,0 +1,32 @@
+/* 1. Importante: Garante que as fontes do Google sejam aplicadas globalmente */
+body, p, span, button, input {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, .navbar-brand {
+  font-family: 'Playfair Display', serif !important;
+}
+
+/* 2. Estilizando a barra de rolagem (Scrollbar) para o clima da Anteiku */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4a373; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b88b5d; 
+}
+
+.hover-gold:hover {
+  color: #d4a373 !important;
+  transform: translateY(-3px);
+  transition: all 0.3s ease;
+}
