@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import QRCode from 'react-qr-code';
 // ❌ DEMITIMOS A BIBLIOTECA qrcode-pix AQUI!
 
@@ -39,6 +40,7 @@ const gerarPayloadPix = (chave, nome, cidade, valor) => {
 };
 
 function PagamentoPix({ valorTotal = 0 }) {
+  const { registrarPedido } = useContext(AuthContext);
   const [payloadPix, setPayloadPix] = useState("");
   const [copiado, setCopiado] = useState(false);
 
@@ -48,11 +50,18 @@ function PagamentoPix({ valorTotal = 0 }) {
   const CIDADE = (import.meta.env.VITE_PIX_CITY || "SAO PAULO").replace(/['"]+/g, '');
   const VALOR = Number(valorTotal) || 0;
 
+  const pedidoJaRegistrado = useRef(false);
+
   useEffect(() => {
-    if (CHAVE && VALOR > 0) {
+    // Adicionamos a verificação: se o cadeado for falso, ele entra.
+    if (CHAVE && VALOR > 0 && !pedidoJaRegistrado.current) {
       // 2. Chama a nossa função segura em vez da biblioteca que travava o site
       const codigoGerado = gerarPayloadPix(CHAVE, NOME, CIDADE, VALOR);
       setPayloadPix(codigoGerado);
+      registrarPedido({ valor: VALOR });
+
+      // 🚀 FECHA O CADEADO! O React não consegue mais gerar duplicado.
+      pedidoJaRegistrado.current = true;
     }
   }, [VALOR, CHAVE]);
 

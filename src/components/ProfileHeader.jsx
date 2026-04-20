@@ -26,7 +26,23 @@ function ProfileHeader({ modoGhoul }) {
   return (
     // Adicionei d-flex e align-items-center para o texto ficar alinhado com o botão
     <div className="position-relative ms-3 d-flex align-items-center">
-      
+       {usuarioLogado && (
+        // 🌟 AQUI ESTÁ O SEU "PAINEL DE PONTOS"
+        <div 
+          className="d-none d-md-flex flex-column align-items-end me-2" 
+          style={{ lineHeight: '1' }}
+        >
+          <span className="small opacity-75" style={{ fontSize: '0.7rem', color: modoGhoul ? '#ff4d4d' : '#d4a373' }}>
+            MEUS PONTOS
+          </span>
+          <span className="fw-bold" style={{ color: '#fff' }}>
+            {usuarioLogado.pontos || 0} pts
+          </span>
+        </div>
+      )}
+
+
+
       {usuarioLogado ? (
         // ✅ SE Está logado
         <>

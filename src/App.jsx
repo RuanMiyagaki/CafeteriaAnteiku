@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react'; // ✅ O segredo está aqui entre as chaves!
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react'; // ✅ O segredo está aqui entre as chaves!
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import { AuthContext } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Cardapio from './components/Cardapio';
 import CardItem from './components/CardItem';
+import PainelPedidos from './components/PainelPedidos';
 import CadastroUsuario from './components/CadastroPerfil/CadastroUsuario'
+import EsqueciSenha from './components/CadastroPerfil/EsqueciSenha';
+import RedefinirSenha from './components/CadastroPerfil/RedefinirSenha';
 import LoginUsuario from './components/CadastroPerfil/LoginUsuario'
 import SobreNos from './components/SobreNos';
 import './App.css'; // 👈 Se o arquivo estiver na mesma pasta que o App.jsx
@@ -25,6 +29,7 @@ const DESTAQUES_HOME = [
 ];
 
 function App() {
+    const { usuario, carregando } = useContext(AuthContext);
   // false = Humano (Claro) | true = Ghoul (Escuro)
 
   const [modoGhoul, setmodoGhoul] = useState(() => {
@@ -50,7 +55,15 @@ function App() {
 };
 
   
-
+// 2. SE ESTIVER CARREGANDO, NÃO MOSTRA AS ROTAS AINDA!
+  if (carregando) {
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100 bg-black">
+        <div className="spinner-border text-danger" role="status"></div>
+        <span className="ms-2 text-white fw-bold">CARREGANDO ANTEIKU...</span>
+      </div>
+    );
+  }
   
   return (
     <CartProvider>
@@ -114,7 +127,13 @@ function App() {
             </div>
           } />
           
+            {/* ROTA DA PÁGINA DE ESQUECI SENHA */}
+
+          <Route path="/esqueci-senha" element={<EsqueciSenha />} />
+           
+           {/* ROTA DA PÁGINA DE MUDAR SENHA*/}
         
+          <Route path="/redefinir-senha/:token" element={<RedefinirSenha />} />
 
         {/* ROTA DA PÁGINA DE LOGIN (Página Separada) */}
           <Route path="/login" element={
@@ -126,7 +145,24 @@ function App() {
               </div>
             </div>
           } />
+
+
+{/* 🕵️ ROTA ESCONDIDA E PROTEGIDA */}
+      <Route 
+        path="/painel-yoshimura-secret" 
+        element={
+          // Só entra se o email for o seu. Se não for, volta pra Home.
+          usuario?.email === 'kakashacafe@gmail.com' ? (
+            <PainelPedidos />
+          ) : (
+            <Navigate to="/" />
+          )
+        } 
+      />
+
         </Routes>
+
+
 
 
       <footer className="py-5 text-center text-white-50" style={{ backgroundColor: '#111' }}>

@@ -117,7 +117,7 @@ function CadastroUsuario() {
           CRIAR MINHA CONTA
         </button>
 
-        <p className="text-center mt-3 cursor-pointer"> Esqueceu sua senha? </p>
+       
       </form>
     </div>
   );

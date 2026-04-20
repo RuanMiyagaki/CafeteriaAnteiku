@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import styles from './Cadastro.module.css';
 import CadastroUsuario from './CadastroUsuario';
+import EsqueciSenha from './EsqueciSenha';
 
 
 
@@ -79,7 +80,8 @@ const { login } = useContext(AuthContext);
         </button>
 
         <div className="text-center mt-4">
-          <p className="mb-1 cursor-pointer text-muted">Esqueceu sua senha?</p>
+          
+          <p className="mb-1 cursor-pointer text-muted">  <Link to="/esqueci-senha" style={{ color: '#d4a373', fontSize: '0.9rem', textDecoration: 'none' }}>Esqueci minha senha</Link></p>
           <p className="text-muted">
             Ainda não é cliente? <Link to="/cadastro" className="fw-bold" style={{ color: '#d4a373', textDecoration: 'none' }}>Cadastre-se aqui</Link>
           </p>
