@@ -1,22 +1,55 @@
+import React from 'react';
+
 const DEPOIMENTOS = [
-  { id: 1, nome: "Kaneki", texto: "O melhor café que já provei, o ambiente é muito calmo.", estrelas: 5 },
-  { id: 2, nome: "Touka", texto: "Atendimento excelente, recomendo o Blend Yoshimura.", estrelas: 4 },
-  { id: 3, nome: "Hide", texto: "Sempre passo aqui depois da aula. A comida é ótima!", estrelas: 5 }
+  { id: 1, nome: "Ken Kaneki", texto: "O melhor café que já provei. O ambiente é muito calmo e acolhedor, ideal para quem precisa de um tempo de paz no Distrito 20.", estrelas: 5, avatar: "⭐" },
+  { id: 2, nome: "Touka Kirishima", texto: "Atendimento excelente e café impecável. Recomendo fortemente o Yoshimura Blend especial preparado na mesa.", estrelas: 5, avatar: "☕" },
+  { id: 3, nome: "Hideyoshi Nagachika", texto: "Sempre passo aqui depois da universidade. O café é fantástico e a equipe é extremamente atenciosa!", estrelas: 5, avatar: "🥪" }
 ];
 
 function Avaliacoes() {
   return (
-    <section className="py-5 bg-dark text-white">
+    <section className="py-5" style={{ backgroundColor: 'var(--theme-bg)', color: 'var(--theme-text-main)' }}>
       <div className="container">
-        <h2 className="text-center mb-5">O que dizem sobre nós</h2>
-        <div className="row">
+        <div className="text-center mb-5">
+          <h5 className="text-uppercase fw-bold" style={{ color: 'var(--theme-accent)', letterSpacing: '3px', fontSize: '0.9rem' }}>Depoimentos</h5>
+          <h2 className="responsive-title fw-bold" style={{ fontFamily: "'Playfair Display', serif" }}>O que dizem sobre nós</h2>
+          <div style={{ width: '65px', height: '3px', backgroundColor: 'var(--theme-accent)', margin: '15px auto', borderRadius: '2px' }}></div>
+        </div>
+
+        <div className="row g-4">
           {DEPOIMENTOS.map((item) => (
-            <div className="col-md-4 mb-3" key={item.id}>
-              <div className="card bg-secondary text-white border-0 p-3 h-100">
-                <div className="card-body">
-                  <h5 className="card-title text-warning">{"★".repeat(item.estrelas)}</h5>
-                  <p className="card-text italic">"{item.texto}"</p>
-                  <footer className="blockquote-footer text-light mt-2">{item.nome}</footer>
+            <div className="col-md-4" key={item.id}>
+              <div 
+                className="card border-0 p-4 h-100 transition-all shadow-sm" 
+                style={{ 
+                  backgroundColor: 'var(--theme-bg-card)', 
+                  color: 'var(--theme-text-main)',
+                  borderRadius: '20px',
+                  border: '1px solid var(--theme-border)',
+                  boxShadow: 'var(--theme-shadow)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-5px)';
+                  e.currentTarget.style.borderColor = 'var(--theme-accent)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.borderColor = 'var(--theme-border)';
+                }}
+              >
+                <div className="card-body p-0 d-flex flex-column text-start">
+                  <div className="d-flex justify-content-between align-items-center mb-3">
+                    <span style={{ fontSize: '1.5rem' }}>{item.avatar}</span>
+                    <div style={{ color: 'var(--theme-accent)' }}>
+                      {"★".repeat(item.estrelas)}
+                    </div>
+                  </div>
+                  <p className="card-text fst-italic mb-4 flex-grow-1" style={{ fontSize: '0.95rem', lineHeight: '1.6', opacity: 0.85 }}>
+                    "{item.texto}"
+                  </p>
+                  <footer className="blockquote-footer mt-auto pt-3 border-top" style={{ color: 'var(--theme-accent)', borderColor: 'var(--theme-border)', fontSize: '0.85rem', fontWeight: '600' }}>
+                    {item.nome}
+                  </footer>
                 </div>
               </div>
             </div>

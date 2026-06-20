@@ -27,7 +27,7 @@ function LoginUsuario () {
             const data = await response.json();
 
             if(response.ok) {
-                login(data.usuario);
+                login(data.usuario, data.token);
                 setMensagem('Acesso liberado, bem vindo de volta a Anteiku');
 
                 // Manda o usuário de volta para a Home

@@ -20,6 +20,7 @@ import './App.css'; // 👈 Se o arquivo estiver na mesma pasta que o App.jsx
 import Avaliacoes from './components/Avaliacoes';
 import Footer from './components/Footer';
 import SelecionarPersonagem from './components/SelecionarPersonagem';
+import MontadorBebidas from './components/MontadorBebidas';
 
 
 
@@ -29,7 +30,7 @@ const DESTAQUES_HOME = [
   { id: 2, nome: "Pour Over Coffee", preco: 6.00, desc: "O bom e tradicional café coado", img: "/coffes/Pour-Over-Coffe.png", categoria: "Cafés", tags: ["forte", "preto", "quente"] },
   { id: 3, nome: "Yhoshimura Blend", preco: 4.00, desc: "O café pacífico leve e suave", img: "/coffes/Cafe-Latte.png", categoria: "Especiais", tags: ["suave", "paz", "leve"] },
   { id: 5, nome: "Drink Tea Ghoul", preco: 20.00, desc: "Chá mate de limão com morango", img: "/tea/Drink-Tea-Ghoul.png", categoria: "Bebidas Geladas", tags: ["gelado", "frio", "ice", "fruta"] },
-  { id: 6, nome: "Black Goat", preco: 5.00, desc: "Café forte e sem açúcar", img: "./coffes/", categoria: "Especiais", tags: ["forte", "amargo", "preto", "intenso"] }
+  { id: 6, nome: "Black Goat", preco: 5.00, desc: "Café forte e sem açúcar", img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500&auto=format&fit=crop", categoria: "Especiais", tags: ["forte", "amargo", "preto", "intenso"] }
 ];
 
 function App() {
@@ -96,9 +97,9 @@ function App() {
           <div style={{ width: '60px', height: '3px', backgroundColor: '#d4a373', margin: '10px auto' }}></div>
         </div>
          
-         <div className="row g-4">
+         <div className="row g-3 g-md-4 justify-content-center">
                   {DESTAQUES_HOME.map(cafe => (
-                    <div className="col-md-4" key={cafe.id}>
+                    <div className="col-6 col-md-4" key={cafe.id}>
                       <CardItem cafe={cafe} />
                     </div>
                   ))}
@@ -110,17 +111,18 @@ function App() {
                 </div>
     
           <Avaliacoes/>
-          <Footer/>
       </main>
 
 </>
           } />
 
           
+          <Route path="/home" element={<Navigate to="/" replace />} />
           <Route path="/SobreNos" element={<SobreNos />} />
           <Route path="/localizacao" element={<MapaLocalizacao />} />
           <Route path="/selecionar" element={<SelecionarPersonagem modoGhoul={modoGhoul} />}/>
            <Route path="/Cardapio" element={<Cardapio />} />
+           <Route path="/montador" element={<MontadorBebidas modoGhoul={modoGhoul} />} />
 
           {/* ROTA DA PÁGINA DE CADASTRO (Página Separada) */}
           <Route path="/cadastro" element={
@@ -170,16 +172,11 @@ function App() {
         } 
       />
 
-        </Routes>
-
-
-
-
-      <footer className="py-5 text-center text-white-50" style={{ backgroundColor: '#111' }}>
-        <p>© 2026 Cafeteria Anteiku - Todos os direitos reservados.</p>
-      </footer>
-    </div>
-    </Router>
+         </Routes>
+ 
+       <Footer />
+     </div>
+     </Router>
     </CartProvider>
   );
 }

@@ -32,10 +32,10 @@ function ProfileHeader({ modoGhoul }) {
           className="d-none d-md-flex flex-column align-items-end me-2" 
           style={{ lineHeight: '1' }}
         >
-          <span className="small opacity-75" style={{ fontSize: '0.7rem', color: modoGhoul ? '#ff4d4d' : '#d4a373' }}>
+          <span className="small opacity-75" style={{ fontSize: '0.7rem', color: modoGhoul ? '#ff4d4d' : 'var(--theme-text-muted)' }}>
             MEUS PONTOS
           </span>
-          <span className="fw-bold" style={{ color: '#fff' }}>
+          <span className="fw-bold" style={{ color: modoGhoul ? '#fff' : 'var(--theme-text-main)' }}>
             {usuarioLogado.pontos || 0} pts
           </span>
         </div>
@@ -52,7 +52,7 @@ function ProfileHeader({ modoGhoul }) {
             src={modoGhoul ? personagem.imgGhoul : personagem.imgHumano}
             alt="Perfil"
             onClick={() => setMenuAberto(!menuAberto)}
-            style={{ width: '40px', height: '40px', cursor: 'pointer', border: `2px solid ${modoGhoul ? '#ff4d4d' : '#d4a373'}` }}
+            style={{ width: '40px', height: '40px', cursor: 'pointer', border: `2px solid ${modoGhoul ? '#ff4d4d' : 'var(--theme-accent)'}` }}
             className="rounded-circle shadow-sm"
           />
 
@@ -88,7 +88,7 @@ function ProfileHeader({ modoGhoul }) {
         <Link 
           to="/login" 
           className="nav-link fw-bold" 
-          style={{ color: '#d4a373', whiteSpace: 'nowrap', cursor: 'pointer' }}
+          style={{ color: 'var(--theme-accent)', whiteSpace: 'nowrap', cursor: 'pointer' }}
         >
           Entrar
         </Link>

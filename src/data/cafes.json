@@ -35,33 +35,33 @@
     "categoria": "Cafés",
     "tags": ["forte", "amargo", "preto", "intenso", "sem acucar"]
   },
-
-     { "id": 5, 
-       "nome": "Flat White", 
-     "preco": 6.00, 
-     "desc": "O bom e tradicional café coado", 
-     "img:": "/coffes/Flat-White-Cofee", 
-      "categoria": "Cafés", "tags": 
-      ["forte", "preto", "quente"] },
-  
-  
-  
-{ "id": 6, 
-   "nome": "Vanilla Latte", 
-   "preco": 14.00, 
-   "desc": "Espresso suave com leite vaporizado e um toque de baunilha.", 
-   "img": "/coffes/Vanilla-Latte.png", 
-   "categoria": "Cafés", 
-   "tags": ["baunilha", "doce", "suave"] },
-
-  { "id": 7, 
-  "nome": "Espresso Con Panna", 
-  "preco": 8.50, 
-  "desc": "Dose de espresso finalizada com uma generosa nuvem de chantilly.", 
-  "img": "/coffes/con-panna.png", 
-  "categoria": "Cafés", 
-  "tags": ["forte", "doce", "chantilly"] },
-
+  {
+    "id": 5,
+    "nome": "Flat White Tradicional",
+    "preco": 6.00,
+    "desc": "O bom e tradicional café coado",
+    "img": "https://images.unsplash.com/photo-1577968897966-3d4325b36b61?w=500&auto=format&fit=crop",
+    "categoria": "Cafés",
+    "tags": ["forte", "preto", "quente"]
+  },
+  {
+    "id": 6,
+    "nome": "Vanilla Latte",
+    "preco": 14.00,
+    "desc": "Espresso suave com leite vaporizado e um toque de baunilha.",
+    "img": "/coffes/Vanilla-Latte.png",
+    "categoria": "Cafés",
+    "tags": ["baunilha", "doce", "suave"]
+  },
+  {
+    "id": 7,
+    "nome": "Espresso Con Panna",
+    "preco": 8.50,
+    "desc": "Dose de espresso finalizada com uma generosa nuvem de chantilly.",
+    "img": "https://images.unsplash.com/photo-1606791405792-1004f1718d0c?w=500&auto=format&fit=crop",
+    "categoria": "Cafés",
+    "tags": ["forte", "doce", "chantilly"]
+  },
   {
     "id": 8,
     "nome": "Java Chip Frappuccino",
@@ -76,7 +76,7 @@
     "nome": "Caramel Frappuccino",
     "preco": 18.50,
     "desc": "Blend de café, leite e gelo com muito caramelo e chantilly.",
-    "img": "/coffes/caramel-frap.png",
+    "img": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=500&auto=format&fit=crop",
     "categoria": "Bebidas Geladas",
     "tags": ["gelado", "caramelo", "doce"]
   },
@@ -85,7 +85,7 @@
     "nome": "Cold Brew Tradicional",
     "preco": 11.00,
     "desc": "Café extraído a frio por 20 horas para um sabor suave e potente.",
-    "img": "/coffes/cold-brew.png",
+    "img": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=500&auto=format&fit=crop",
     "categoria": "Bebidas Geladas",
     "tags": ["forte", "gelado", "puro"]
   },
@@ -94,7 +94,7 @@
     "nome": "Iced Latte Macchiato",
     "preco": 14.00,
     "desc": "Camadas de leite gelado e espresso servidos sobre cubos de gelo.",
-    "img": "/coffes/iced-latte.png",
+    "img": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500&auto=format&fit=crop",
     "categoria": "Bebidas Geladas",
     "tags": ["gelado", "leite", "refrescante"]
   },
@@ -103,7 +103,7 @@
     "nome": "Strawberry Frappuccino",
     "preco": 18.00,
     "desc": "Bebida cremosa à base de creme batida com calda de morango.",
-    "img": "/coffes/strawberry-frap.png",
+    "img": "https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=500&auto=format&fit=crop",
     "categoria": "Bebidas Geladas",
     "tags": ["gelado", "morango", "sem-cafe"]
   },
@@ -112,7 +112,7 @@
     "nome": "Pink Drink (Morango Açaí)",
     "preco": 17.00,
     "desc": "Refresher de morango e açaí combinado com leite de coco.",
-    "img": "/tea/pink-drink.png",
+    "img": "https://images.unsplash.com/photo-1497534446932-c925b458314e?w=500&auto=format&fit=crop",
     "categoria": "Bebidas Geladas",
     "tags": ["gelado", "fruta", "coco"]
   },
@@ -121,7 +121,7 @@
     "nome": "Dragon Drink (Manga Dragonfruit)",
     "preco": 17.00,
     "desc": "Refresher exótico de manga e pitaya com leite de coco.",
-    "img": "/tea/dragon-drink.png",
+    "img": "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=500&auto=format&fit=crop",
     "categoria": "Bebidas Geladas",
     "tags": ["gelado", "fruta", "exótico"]
   },
@@ -130,7 +130,7 @@
     "nome": "Iced Green Tea Lemonade",
     "preco": 13.50,
     "desc": "Chá verde batido com limonada e gelo.",
-    "img": "/tea/green-tea-lemonade.png",
+    "img": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500&auto=format&fit=crop",
     "categoria": "Bebidas Geladas",
     "tags": ["gelado", "chá", "limão"]
   },
@@ -139,7 +139,7 @@
     "nome": "Iced Passion Tango",
     "preco": 12.00,
     "desc": "Infusão de hibisco, capim-limão e maçã. Naturalmente sem cafeína.",
-    "img": "/tea/passion-tango.png",
+    "img": "https://images.unsplash.com/photo-1556881286-fc6915169721?w=500&auto=format&fit=crop",
     "categoria": "Bebidas Geladas",
     "tags": ["gelado", "chá", "fruta"]
   },
@@ -148,7 +148,7 @@
     "nome": "Chai Latte",
     "preco": 15.50,
     "desc": "Chá preto com especiarias, canela e leite vaporizado.",
-    "img": "/tea/chai-latte.png",
+    "img": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=500&auto=format&fit=crop",
     "categoria": "Especiais",
     "tags": ["quente", "especiarias", "chá"]
   },
@@ -157,7 +157,7 @@
     "nome": "Pão de Queijo Clássico",
     "preco": 7.00,
     "desc": "Receita mineira tradicional, sempre quentinho.",
-    "img": "/snacks/pao-de-queijo.png",
+    "img": "https://images.unsplash.com/photo-1625938146369-adc83368bda7?w=500&auto=format&fit=crop",
     "categoria": "Acompanhamentos",
     "tags": ["salgado", "quente", "queijo"]
   },
@@ -166,7 +166,7 @@
     "nome": "Croissant de Manteiga",
     "preco": 11.50,
     "desc": "Massa folhada francesa amanteigada e crocante.",
-    "img": "/snacks/croissant.png",
+    "img": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500&auto=format&fit=crop",
     "categoria": "Acompanhamentos",
     "tags": ["salgado", "folhado", "quente"]
   },
@@ -175,7 +175,7 @@
     "nome": "Chocolate Brownie",
     "preco": 12.00,
     "desc": "Brownie de chocolate belga denso e molhadinho.",
-    "img": "/snacks/brownie.png",
+    "img": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500&auto=format&fit=crop",
     "categoria": "Acompanhamentos",
     "tags": ["doce", "chocolate", "sobremesa"]
   },
@@ -184,7 +184,7 @@
     "nome": "Cinnamon Roll",
     "preco": 13.00,
     "desc": "Caracol de canela com cobertura de creme de queijo doce.",
-    "img": "/snacks/cinnamon-roll.png",
+    "img": "https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=500&auto=format&fit=crop",
     "categoria": "Acompanhamentos",
     "tags": ["doce", "canela", "quente"]
   },
@@ -193,7 +193,7 @@
     "nome": "Muffin de Blueberry",
     "preco": 10.50,
     "desc": "Bolinho macio recheado com mirtilos frescos.",
-    "img": "/snacks/muffin.png",
+    "img": "https://images.unsplash.com/photo-1607958996333-41aef7caefaa?w=500&auto=format&fit=crop",
     "categoria": "Acompanhamentos",
     "tags": ["doce", "fruta", "lanche"]
   },
@@ -202,7 +202,7 @@
     "nome": "Coxinha de Frango",
     "preco": 9.50,
     "desc": "Massa leve com recheio de frango desfiado temperado.",
-    "img": "/snacks/coxinha.png",
+    "img": "https://images.unsplash.com/photo-1626078426732-c512fc452427?w=500&auto=format&fit=crop",
     "categoria": "Acompanhamentos",
     "tags": ["salgado", "quente", "frango"]
   },
@@ -211,13 +211,13 @@
     "nome": "Cookies de Chocolate",
     "preco": 8.00,
     "desc": "Cookie americano com gotas de chocolate meio amargo.",
-    "img": "/snacks/cookie.png",
+    "img": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500&auto=format&fit=crop",
     "categoria": "Acompanhamentos",
     "tags": ["doce", "chocolate", "lanche"]
   },
   {
     "id": 25,
-    "nome": "Flat White",
+    "nome": "Flat White Especial",
     "preco": 13.00,
     "desc": "Doses de Ristretto com leite vaporizado integral bem cremoso.",
     "img": "/coffes/Flat-White-Cofee.png",
@@ -229,7 +229,7 @@
     "nome": "Caramel Macchiato",
     "preco": 15.00,
     "desc": "Leite vaporizado com baunilha, marcado com espresso e calda de caramelo.",
-    "img": "/coffes/caramel-macchiato.png",
+    "img": "https://images.unsplash.com/photo-1595434066389-010f75b75ce1?w=500&auto=format&fit=crop",
     "categoria": "Cafés",
     "tags": ["doce", "caramelo", "quente"]
   },
@@ -238,7 +238,7 @@
     "nome": "Caffè Mocha",
     "preco": 14.50,
     "desc": "Espresso com calda de chocolate, leite vaporizado e chantilly.",
-    "img": "/coffes/mocha.png",
+    "img": "https://images.unsplash.com/photo-1534778101976-62847782c213?w=500&auto=format&fit=crop",
     "categoria": "Cafés",
     "tags": ["chocolate", "doce", "quente"]
   }
