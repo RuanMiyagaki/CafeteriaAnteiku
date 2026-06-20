@@ -1,4 +1,34 @@
-/* 1. Importante: Garante que as fontes do Google sejam aplicadas globalmente */
+/* ==========================================================================
+   ☕ CAFETARIA ANTEIKU - CENTRAL DESIGN SYSTEM (CORRIGIDO & UNIFICADO)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  /* Modo Humano - Contraste Premium e Cores Aconchegantes */
+  --human-bg: #fcfaf7;
+  --human-bg-card: #ffffff;
+  --human-text-main: #1a0f0a; /* Marrom expresso profundo (Leitura perfeita) */
+  --human-text-muted: #5c4d44; /* Marrom médio descritivo */
+  --human-accent: #b5835a; /* Dourado café elegante */
+  --human-accent-hover: #8f6039;
+  --human-border: rgba(181, 131, 90, 0.15);
+  --human-shadow: 0 10px 30px rgba(44, 30, 22, 0.04);
+  --human-navbar: rgba(253, 250, 245, 0.85);
+
+  /* Modo Ghoul - Dark Thriller Estilo Tóquio Noturna */
+  --ghoul-bg: #090505; /* Preto absoluto temperado */
+  --ghoul-bg-card: #120b0b; /* Cinza grafite sombrio */
+  --ghoul-text-main: #f5eded; /* Branco gelo de alto contraste */
+  --ghoul-text-muted: #a39595; /* Cinza claro */
+  --ghoul-accent: #ff3333; /* Vermelho escarlate neon */
+  --ghoul-accent-hover: #cc0000;
+  --ghoul-border: rgba(255, 51, 51, 0.2);
+  --ghoul-shadow: 0 10px 30px rgba(255, 51, 51, 0.08);
+  --ghoul-navbar: rgba(18, 18, 18, 0.85);
+}
+
+/* --- ESTILOS GLOBAIS --- */
 body, p, span, button, input {
   font-family: 'Poppins', sans-serif !important;
 }
@@ -7,113 +37,181 @@ h1, h2, h3, h4, h5, .navbar-brand {
   font-family: 'Playfair Display', serif !important;
 }
 
-/* 2. Estilizando a barra de rolagem (Scrollbar) para o clima da Anteiku */
+/* 2. Estilizando seu Scrollbar original da Anteiku */
 ::-webkit-scrollbar {
   width: 10px;
 }
-
 ::-webkit-scrollbar-track {
   background: #1a1a1a; 
 }
-
 ::-webkit-scrollbar-thumb {
   background: #d4a373; 
   border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: #b88b5d; 
 }
 
-.hover-gold:hover {
-  color: #d4a373 !important;
-  transform: translateY(-3px);
-  transition: all 0.3s ease;
+/* --- APLICAÇÃO DOS TEMAS DINÂMICOS (MÁGICA DO REACT) --- */
+.theme-wrapper-human {
+  --theme-bg: var(--human-bg);
+  --theme-bg-card: var(--human-bg-card);
+  --theme-text-main: var(--human-text-main);
+  --theme-text-muted: var(--human-text-muted);
+  --theme-accent: var(--human-accent);
+  --theme-accent-hover: var(--human-accent-hover);
+  --theme-border: var(--human-border);
+  --theme-shadow: var(--human-shadow);
+  --theme-navbar: var(--human-navbar);
 }
 
-/* --- ESTILIZAÇÃO DA NAVBAR --- */
+.theme-wrapper-ghoul {
+  --theme-bg: var(--ghoul-bg);
+  --theme-bg-card: var(--ghoul-bg-card);
+  --theme-text-main: var(--ghoul-text-main);
+  --theme-text-muted: var(--ghoul-text-muted);
+  --theme-accent: var(--ghoul-accent);
+  --theme-accent-hover: var(--ghoul-accent-hover);
+  --theme-border: var(--ghoul-border);
+  --theme-shadow: var(--ghoul-shadow);
+  --theme-navbar: var(--ghoul-navbar);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--theme-bg);
+  color: var(--theme-text-main);
+  transition: background-color 0.5s ease, color 0.5s ease;
+  overflow-x: hidden;
+}
+
+/* --- ESTILIZAÇÃO DA NAVBAR GLASSMORPHISM (SUA ORIGINAL APERFEIÇOADA) --- */
 .custom-navbar {
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 1rem 0;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  background: var(--theme-navbar) !important;
+  border-bottom: 1px solid var(--theme-border) !important;
 }
 
-/* Modos */
-.human-mode { background-color: rgba(17, 13, 11, 0.85); }
-.ghoul-mode { background-color: rgba(20, 0, 0, 0.92); border-bottom: 1px solid rgba(255, 77, 77, 0.3); }
-
-/* Logo */
-.logo-anteiku {
-  font-size: 1.5rem;
-  letter-spacing: 2px;
-  text-decoration: none;
-}
-.brand-accent { color: #d4a373; transition: 0.5s; }
-.ghoul-mode .brand-accent { color: #ff4d4d; text-shadow: 0 0 10px rgba(255, 77, 77, 0.5); }
-
-/* Links de Navegação */
 .custom-link {
-  color: rgba(255,255,255,0.7) !important;
+  display: flex !important;
+  align-items: center !important;
+  height: 42px !important;
+  color: var(--theme-text-muted) !important;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   letter-spacing: 1px;
   position: relative;
-  transition: 0.3s;
+  transition: color 0.3s ease;
 }
+
 .custom-link:hover, .custom-link.active {
-  color: #fff !important;
+  color: var(--theme-accent) !important;
 }
+
 .custom-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 50%;
-  width: 0; height: 2px;
-  background: #d4a373;
+  content: ''; 
+  position: absolute; 
+  left: 50%; 
+  bottom: 0px; 
+  width: 0; 
+  height: 2px;
+  background: var(--theme-accent);
   transition: 0.3s;
   transform: translateX(-50%);
 }
-.ghoul-mode .custom-link::after { background: #ff4d4d; }
-.custom-link:hover::after, .custom-link.active::after { width: 80%; }
+.custom-link:hover::after, .custom-link.active::after { width: 100%; }
 
-/* Barra de Busca */
-.search-box {
-  background: rgba(255,255,255,0.08);
+/* Seção de Busca Expansível */
+.search-box-expandable {
+  display: flex;
+  align-items: center;
+  background: transparent;
   border-radius: 50px;
-  padding: 5px 15px;
-  transition: 0.3s;
+  padding: 8px 15px;
+  transition: all 0.4s ease;
   border: 1px solid transparent;
+  cursor: pointer;
 }
-.search-box:focus-within {
-  background: rgba(255,255,255,0.15);
-  border-color: #d4a373;
-  width: 250px; /* Expande ao clicar */
-}
-.ghoul-mode .search-box:focus-within { border-color: #ff4d4d; }
-.search-input {
+.search-input-expandable {
   background: none; border: none; outline: none;
-  color: #fff; font-size: 0.8rem; width: 120px; margin-left: 8px;
+  font-size: 0.85rem; width: 0px; opacity: 0;
+  transition: all 0.4s ease;
+}
+.search-box-expandable:hover, .search-box-expandable:focus-within {
+  background: rgba(150, 150, 150, 0.1);
+  border-color: var(--theme-border);
+}
+.search-box-expandable:hover .search-input-expandable,
+.search-box-expandable:focus-within .search-input-expandable {
+  width: 150px; opacity: 1; margin-left: 10px;
 }
 
-/* Botões de Ação */
-.mode-toggle-btn, .cart-btn {
-  border: none; background: none;
-  font-weight: 700; font-size: 0.75rem;
-  padding: 8px 16px; border-radius: 50px;
-  display: flex; align-items: center; transition: 0.3s;
+/* Avatar e Hovers da Navbar */
+.profile-wrapper { border-radius: 50%; padding: 2px; transition: box-shadow 0.3s ease; }
+.glow-human:hover { box-shadow: 0 0 15px rgba(212, 163, 115, 0.6); }
+.glow-ghoul:hover { box-shadow: 0 0 20px rgba(255, 77, 77, 0.8); }
+.hover-gold:hover { color: var(--theme-accent) !important; transform: translateY(-2px); transition: all 0.3s ease; }
+
+/* --- CARDS DE PRODUTOS PREMIUM (NÍVEL COFFEE SHOP LUXO) --- */
+.premium-card {
+  background-color: var(--theme-bg-card) !important;
+  border: 1px solid var(--theme-border) !important;
+  border-radius: 24px !important;
+  overflow: hidden;
+  box-shadow: var(--theme-shadow);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
-.is-human { border: 1px solid #d4a373; color: #d4a373; }
-.is-human:hover { background: #d4a373; color: #111; }
-.is-ghoul { border: 1px solid #ff4d4d; color: #ff4d4d; box-shadow: 0 0 15px rgba(255, 77, 77, 0.2); }
-.is-ghoul:hover { background: #ff4d4d; color: #fff; }
 
-.cart-btn { color: #d4a373; font-size: 1.4rem; }
-.ghoul-mode .cart-btn { color: #ff4d4d; }
+/* 🚀 Efeito de levitação suave ao passar o mouse */
+.premium-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--theme-accent) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
 
-.cart-badge {
-  position: absolute; top: -2px; right: -8px;
-  background: #ff4d4d; color: white;
-  font-size: 0.65rem; padding: 2px 6px;
-  border-radius: 50px; border: 2px solid #111;
+/* 🌟 Aura luminosa exclusiva do Modo Ghoul (Aura Escarlate) */
+.theme-wrapper-ghoul .premium-card:hover {
+  box-shadow: 0 0 25px rgba(255, 51, 51, 0.25), 0 0 50px rgba(255, 51, 51, 0.1);
+}
+
+/* --- GAVETA DE PEDIDOS TRANSLÚCIDA (OFFCANVAS FLUTUANTE) --- */
+.offcanvas {
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-text-main) !important;
+  border-left: 1px solid var(--theme-border) !important;
+  backdrop-filter: blur(25px) saturate(160%);
+  -webkit-backdrop-filter: blur(25px) saturate(160%);
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+
+/* --- TIPOGRAFIA ULTRA RESPONSIVA CLAMP --- */
+.responsive-title {
+  font-size: clamp(1.8rem, 4.5vw, 3.5rem);
+  line-height: 1.15;
+  color: var(--theme-text-main);
+  transition: color 0.3s ease;
+}
+
+.responsive-subtitle {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  color: var(--theme-text-muted);
+}
+
+.text-muted {
+  color: var(--theme-text-muted) !important;
+}
+
+/* Margem de segurança responsiva para o topo do site */
+.main-content-spacer {
+  padding-top: clamp(90px, 13vh, 130px);
+}
+
+/* --- RESPONSIVIDADE MOBILE --- */
+@media (max-width: 768px) {
+  .premium-card { border-radius: 20px !important; }
+  .offcanvas { width: 100% !important; }
 }

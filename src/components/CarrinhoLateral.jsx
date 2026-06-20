@@ -1,12 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useCart } from '../context/CartContext';
+import { AuthContext } from '../context/AuthContext';
 import PagamentoPix from './PagamentoPix';
 
 function CarrinhoLateral() {
-  const { cart, valorTotal, removeFromCart } = useCart();
-  
-  // 🛡️ O GATILHO: Começa falso para mostrar a sacola.
+  const { cart, valorTotal, removeFromCart, cupomAtivo, setCupomAtivo } = useCart();
+  const { usuario } = useContext(AuthContext);
+
+ 
   const [mostrarPix, setMostrarPix] = useState(false);
+  const [inputCupom, setInputCupom] = useState('');
+  const [mensagemCupom, setMensagemCupom] = useState({ texto: '', tipo: '' });
+
+  const handleAplicarCupom = () => {
+    const cupomFormatado = inputCupom.trim().toUpperCase();
+
+
+    if (cupomFormatado === 'BEMVINDO50' || cupomFormatado === usuario?.cupom) {
+      setCupomAtivo(cupomFormatado); // Ativa na matemática do CartContext
+      setMensagemCupom({ texto: '🎯 Cupom aplicado! 50% de desconto em 1 item.', tipo: 'success' });
+    } else {
+      setMensagemCupom({ texto: '❌ Cupom inválido ou não resgatado.', tipo: 'danger' });
+    }
+  };
+
+  const handleRemoverCupom = () => {
+    setCupomAtivo(''); // Tira o desconto da matemática
+    setInputCupom(''); // Limpa o que ele digitou
+    setMensagemCupom({ texto: '', tipo: '' }); // Limpa a mensagem de sucesso
+  };
 
   // 🟢 TELA 2: SE CLICOU EM FINALIZAR, MOSTRA O PIX AQUI DENTRO
   if (mostrarPix) {
@@ -27,7 +49,7 @@ function CarrinhoLateral() {
     );
   }
 
-  // 🟢 TELA 1: A SUA SACOLA ORIGINAL
+ 
   return (
     <div className="d-flex flex-column h-100 p-3">
       {cart.length === 0 ? (
@@ -62,6 +84,51 @@ function CarrinhoLateral() {
             ))}
           </div>
 
+         
+          <div className="p-3 mb-3 bg-light border rounded-3" style={{ color: '#333' }}>
+            <label className="form-label small fw-bold text-uppercase" style={{ letterSpacing: '1px' }}>
+              Possui Cupom de Desconto?
+            </label>
+            <div className="input-group input-group-sm">
+              <input 
+                type="text" 
+                className="form-control" 
+                placeholder="Ex: BEMVINDO50" 
+                value={inputCupom}
+                onChange={(e) => setInputCupom(e.target.value)}
+                disabled={cupomAtivo !== ''} // Trava o campo se já tiver um aplicado
+              />
+             {cupomAtivo === '' ? (
+                <button 
+                  className="btn btn-dark fw-bold" 
+                  onClick={handleAplicarCupom}
+                >
+                  Aplicar
+                </button>
+              ) : (
+                <button 
+                  className="btn btn-danger fw-bold" 
+                  onClick={handleRemoverCupom}
+                >
+                  <i className="bi bi-x-lg"></i> Remover
+                </button>
+              )}
+            </div>
+            
+            {mensagemCupom.texto && (
+              <small className={`d-block mt-2 fw-bold text-${mensagemCupom.tipo}`} style={{ fontSize: '0.75rem' }}>
+                {mensagemCupom.texto}
+              </small>
+            )}
+            
+            {/* Dica amigável pro cliente saber se tem cupom na manga */}
+            {usuario?.cupom && cupomAtivo === '' && (
+              <small className="d-block mt-2 text-muted" style={{ fontSize: '0.7rem' }}>
+                💡 Você tem o cupom <strong className="text-dark">{usuario.cupom}</strong> disponível!
+              </small>
+            )}
+          </div>
+
           <div className="mt-auto pt-4 border-top border-secondary">
             <div className="d-flex justify-content-between align-items-center mb-4">
               <span className="fw-bold text-uppercase small" style={{ letterSpacing: '2px' }}>Total</span>
@@ -70,7 +137,7 @@ function CarrinhoLateral() {
               </span>
             </div>
 
-            {/* 🛡️ ESSE BOTÃO AGORA SÓ MUDA A TELA, NÃO CHAMA MODAL! */}
+          
             <button 
               className="btn btn-success w-100 py-3 fw-bold shadow-lg" 
               style={{ borderRadius: '15px', letterSpacing: '1px' }}

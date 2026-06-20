@@ -7,42 +7,30 @@ function CadastroUsuario() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [confirmarSenha, setConfirmarSenha] = useState('');
   const [mensagem, setMensagem] = useState('');
 
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // 🧠 FUNÇÃO DE VALIDAÇÃO DE SENHA
-  const validarSenha = (senhaDigitada) => {
-    if (senhaDigitada.length < 8) {
-      return "A senha deve ter no mínimo 8 caracteres";
-    }
-
-    // Regra: Pelo menos 3 números ou símbolos
-    const qtdSymbolNumber = (senhaDigitada.match(/[^a-zA-Z]/g) || []).length;
-    
-    if (qtdSymbolNumber < 3) {
-      return "A senha precisa de pelo menos 3 números ou símbolos";
-    }
-
-    return null;
-  };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault(); 
+    // 🚨 A TRAVA DE SEGURANÇA DA SENHA
+    const regexSenha = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     
-    const campoSenha = e.target.senha; 
-    const erro = validarSenha(senha);
-
-    if (erro) {
-      campoSenha.setCustomValidity(erro);
-      campoSenha.reportValidity();
-      setMensagem(erro);
-      return; 
+    if (!regexSenha.test(senha)) {
+      return setMensagem ("As senhas devem ter no mínimo 8 caracteres,incluindo uma letra maiúscula, um número e um símbolo especial");
     }
 
-    // ✅ AJUSTE 1: Limpa o erro para permitir o envio
-    campoSenha.setCustomValidity("");
+    if (senha !== confirmarSenha) {
+        return setMensagem("❌ As senhas não conferem.");
+    }
+    
+    
+
+    
 
     try {
       const response = await fetch('http://localhost:5000/api/usuarios', {
@@ -56,13 +44,12 @@ function CadastroUsuario() {
       const data = await response.json();
 
       if (response.ok) {
-        login(data.usuario);
-        setMensagem(`Bem-vindo! Seu cupom de 15% é: ${data.usuario.cupom}`);
+       
+       setMensagem("✅ Cadastro quase lá! Um código de 6 dígitos foi enviado para o seu e-mail.");
 
-        // ✅ AJUSTE 2: Deixamos apenas o timeout para o usuário ver a mensagem
         setTimeout(() => {
-          navigate('/selecionar');
-        }, 1500);
+         navigate('/verificar-codigo', { state: { emailDigitado: email } });
+        }, 2500);
 
       } else {
         setMensagem(data.erro || "Erro ao cadastrar. Tente novamente.");
@@ -100,15 +87,25 @@ function CadastroUsuario() {
             required
           />
         </div>
+        <div className={styles.inputGrupo}>
+          <input 
+            className={styles.inputCustom}
+            type="text" 
+            placeholder="Crie uma Senha (mínimo 8 dígitos)" 
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+            required
+          />
+        </div>
 
         <div className={styles.inputGrupo}>
           <input 
             className={styles.inputCustom}
-            type="password" 
+            type="text" 
             name="senha"
-            placeholder="Crie uma Senha (mínimo 8 dígitos)" 
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
+            placeholder="Confirme sua senha" 
+            value={confirmarSenha}
+            onChange={(e) => setConfirmarSenha(e.target.value)}
             required
           />
         </div>

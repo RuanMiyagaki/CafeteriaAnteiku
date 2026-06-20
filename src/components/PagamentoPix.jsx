@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { useCart} from '../context/CartContext';
 import QRCode from 'react-qr-code';
 // ❌ DEMITIMOS A BIBLIOTECA qrcode-pix AQUI!
 
@@ -43,27 +44,32 @@ function PagamentoPix({ valorTotal = 0 }) {
   const { registrarPedido } = useContext(AuthContext);
   const [payloadPix, setPayloadPix] = useState("");
   const [copiado, setCopiado] = useState(false);
+  const { limparCarrinho } = useCart();
+
+  const [valorFixo] = useState(Number(valorTotal) || 0);
 
   // 1. Pega os seus dados REAIS do arquivo .env
   const CHAVE = (import.meta.env.VITE_PIX_KEY || "suachave@email.com").replace(/['"]+/g, '');
   const NOME = (import.meta.env.VITE_PIX_NAME || "Anteiku Coffee").replace(/['"]+/g, '');
   const CIDADE = (import.meta.env.VITE_PIX_CITY || "SAO PAULO").replace(/['"]+/g, '');
-  const VALOR = Number(valorTotal) || 0;
+  
 
   const pedidoJaRegistrado = useRef(false);
 
   useEffect(() => {
     // Adicionamos a verificação: se o cadeado for falso, ele entra.
-    if (CHAVE && VALOR > 0 && !pedidoJaRegistrado.current) {
+    if (CHAVE && valorFixo > 0 && !pedidoJaRegistrado.current) {
       // 2. Chama a nossa função segura em vez da biblioteca que travava o site
-      const codigoGerado = gerarPayloadPix(CHAVE, NOME, CIDADE, VALOR);
+      const codigoGerado = gerarPayloadPix(CHAVE, NOME, CIDADE, valorFixo);
       setPayloadPix(codigoGerado);
-      registrarPedido({ valor: VALOR });
+      registrarPedido({ valor: valorFixo });
+
+      limparCarrinho();
 
       // 🚀 FECHA O CADEADO! O React não consegue mais gerar duplicado.
       pedidoJaRegistrado.current = true;
     }
-  }, [VALOR, CHAVE]);
+  }, [valorFixo, CHAVE]);
 
   const copiarCodigo = () => {
     if (payloadPix) {
@@ -79,7 +85,7 @@ function PagamentoPix({ valorTotal = 0 }) {
       
       <p className="text-muted small mb-4">
         Escaneie o QR Code no app do seu banco para pagar 
-        <strong className="text-success fs-5 ms-1">R$ {VALOR.toFixed(2)}</strong>
+        <strong className="text-success fs-5 ms-1">R$ {valorFixo.toFixed(2)}</strong>
       </p>
 
       {/* 3. Desenha o QR Code na tela usando a biblioteca segura (react-qr-code) */}

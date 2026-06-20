@@ -60,9 +60,9 @@ function Footer() {
               <div>
                 <p className="text-white fw-bold mb-0">20º Distrito, Tokyo</p>
                 <p className="text-white-50 small mb-0">Rua da Estação, Próximo à Ward 20</p>
-                <Link to="/SobreNos" className="text-decoration-none small" style={{ color: '#d4a373' }}>
-                  Ver no mapa simbólico →
-                </Link>
+               <Link to="/localizacao" className="text-decoration-none small" style={{ color: '#d4a373' }}>
+  Ver no mapa simbólico →
+</Link>
               </div>
             </div>
           </div>

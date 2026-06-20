@@ -7,10 +7,14 @@ import Hero from './components/Hero';
 import Cardapio from './components/Cardapio';
 import CardItem from './components/CardItem';
 import PainelPedidos from './components/PainelPedidos';
+import PaginaRewards from './components/PaginaRewards';
+import MapaLocalizacao from './components/MapaLocalizacao';
 import CadastroUsuario from './components/CadastroPerfil/CadastroUsuario'
+import VerificarEmail from './components/CadastroPerfil/VerificarEmail';
 import EsqueciSenha from './components/CadastroPerfil/EsqueciSenha';
 import RedefinirSenha from './components/CadastroPerfil/RedefinirSenha';
 import LoginUsuario from './components/CadastroPerfil/LoginUsuario'
+
 import SobreNos from './components/SobreNos';
 import './App.css'; // 👈 Se o arquivo estiver na mesma pasta que o App.jsx
 import Avaliacoes from './components/Avaliacoes';
@@ -48,11 +52,9 @@ function App() {
   // Definimos as cores baseado no estado
 
  const estiloTema = {
-  backgroundColor: modoGhoul ? '#1a1a1a' : '#fcfaf7', 
-  color: modoGhoul ? '#ff4d4d' : '#4b2c20',
   minHeight: '100vh',
-  transition: '0.5s' // 👈 Adicionei o 's' de segundos
-};
+    transition: 'background-color 0.5s ease, color 0.5s ease'
+  };
 
   
 // 2. SE ESTIVER CARREGANDO, NÃO MOSTRA AS ROTAS AINDA!
@@ -68,18 +70,21 @@ function App() {
   return (
     <CartProvider>
     <Router>
-   <div style={estiloTema}>
-        {/* Passamos as props para a Navbar funcionar */}
+   <div 
+          className={modoGhoul ? 'theme-wrapper-ghoul' : 'theme-wrapper-human'} 
+          style={estiloTema}
+        >
+
         <Navbar aoAlternar={alternarTema} modoGhoul={modoGhoul} />
      
 
       
-      <div style={{ paddingTop: '100px' }}></div>
+      <div className="main-content-spacer"></div>
 
       <Routes>
         <Route path="/" element={
           <>
-      <Hero />
+      <Hero modoGhoul={modoGhoul} />
 
     
      <main className="container py-5">
@@ -87,7 +92,7 @@ function App() {
         <div className="text-center mb-5 mt-5">
           
           <h5 style={{ color: '#d4a373' }} className="text-uppercase">Nossa Seleção</h5>
-          <h2 className="display-5 fw-bold text-white">CAFÉS ESPECIAIS</h2>
+          <h2 className="responsive-title fw-bold">CAFÉS ESPECIAIS</h2>
           <div style={{ width: '60px', height: '3px', backgroundColor: '#d4a373', margin: '10px auto' }}></div>
         </div>
          
@@ -113,6 +118,7 @@ function App() {
 
           
           <Route path="/SobreNos" element={<SobreNos />} />
+          <Route path="/localizacao" element={<MapaLocalizacao />} />
           <Route path="/selecionar" element={<SelecionarPersonagem modoGhoul={modoGhoul} />}/>
            <Route path="/Cardapio" element={<Cardapio />} />
 
@@ -126,6 +132,8 @@ function App() {
               </div>
             </div>
           } />
+
+          <Route path="/verificar-codigo" element={<VerificarEmail />} />
           
             {/* ROTA DA PÁGINA DE ESQUECI SENHA */}
 
@@ -146,8 +154,10 @@ function App() {
             </div>
           } />
 
+<Route path="/recompensas" element={<PaginaRewards modoGhoul={modoGhoul} />} />
 
-{/* 🕵️ ROTA ESCONDIDA E PROTEGIDA */}
+
+
       <Route 
         path="/painel-yoshimura-secret" 
         element={

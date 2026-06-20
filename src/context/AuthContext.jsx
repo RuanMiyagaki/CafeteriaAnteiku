@@ -84,6 +84,19 @@ export const AuthProvider = ({ children }) => {
           body: JSON.stringify({ email: pedidoParaConfirmar.clienteEmail, pontosGanhos: pontosGanhos })
         });
 
+        setUsuario(prev => {
+          if (prev && prev.email === pedidoParaConfirmar.clienteEmail) {
+            const novosPontos = (prev.pontos || 0) + pontosGanhos;
+            
+            // Atualiza também o localStorage para não perder o sincronismo se ele atualizar depois
+            const usuarioAtualizado = { ...prev, pontos: novosPontos };
+            localStorage.setItem('anteiku_user', JSON.stringify(usuarioAtualizado));
+            
+            return usuarioAtualizado;
+          }
+          return prev;
+        });
+
         // 2. Manda o banco MUDAR O STATUS do pedido para 'Confirmado'
         await fetch(`http://localhost:5000/api/pedidos/${pedidoId}/status`, {
           method: 'PUT',
@@ -107,6 +120,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={{ 
       usuario, 
+      setUsuario, 
       login, 
       logout, 
       pedidos, 
