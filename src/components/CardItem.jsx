@@ -1,102 +1,97 @@
 import React, { useState } from 'react';
-import { useCart } from '../context/CartContext'
+import { useCart } from '../context/CartContext';
 
 function CardItem({ cafe, temCupom }) {
-  // 🧠 Estado para controlar se o coração está marcado ou não
   const [favorito, setFavorito] = useState(false);
   const [adicionado, setAdicionado] = useState(false);
   const { addToCart } = useCart();
 
-
-  // Função para decidir a cor da tag
+  // 🧪 Estilização de vidro (Glassmorphism) para as Tags
   const getCorDaTag = (tag) => {
-    const t = tag.toLowerCase();
-    if (t === 'gelado' || t === 'frio' || t === 'ice') return '#3498db'; // Azul gelo
-    if (t === 'forte' || t === 'preto') return '#2c3e50'; // Cinza bem escuro
-    if (t === 'doce' || t === 'suave') return '#e67e22'; // Laranja suave
-    if (t === 'leite') return '#f39c12'; // Amarelo queimado
-    return '#d4a373'; // Cor dourada padrão da Anteiku
+    const t = tag ? tag.toLowerCase() : '';
+    if (t === 'gelado' || t === 'frio' || t === 'ice') return 'rgba(52, 152, 219, 0.15)'; 
+    if (t === 'forte' || t === 'preto') return 'rgba(26, 15, 10, 0.15)'; 
+    if (t === 'doce' || t === 'suave') return 'rgba(230, 126, 34, 0.15)'; 
+    if (t === 'leite') return 'rgba(243, 156, 18, 0.15)'; 
+    return 'rgba(181, 131, 90, 0.15)'; 
   };
 
-  // 3. FUNÇÃO: Clique no botão "Adicionar"
   const handleAdicionar = () => {
-
-    const valorCarrinho = temCupom ? cafe.precoFinal : cafe.preco;
+    const valorCarrinho = temCupom ? (cafe?.precoFinal || cafe?.preco) : (cafe?.preco || 0);
 
     addToCart({
       ...cafe,
-      preco: valorCarrinho // Garante que o preço no carrinho seja o correto
+      preco: valorCarrinho 
     });
-    setAdicionado(true); // Muda o estado para "Adicionado"
+    setAdicionado(true); 
     
-    // Depois de 1.5 segundos (1500ms), o botão volta ao estado normal
     setTimeout(() => {
       setAdicionado(false);
     }, 1500);
   };
-  
+
+  // 🛡️ BLINDAGEM ANTI-TELA BRANCA: Se os preços não carregaram do banco ainda, assume "0.00" em vez de quebrar
+  const precoExibido = cafe?.preco ? cafe.preco.toFixed(2) : '0.00';
+  const precoFinalExibido = cafe?.precoFinal ? cafe.precoFinal.toFixed(2) : '0.00';
+
   return (
-    <div 
-      className="card h-100 border-0" 
-      style={{ 
-        borderRadius: '20px', 
-        overflow: 'hidden',
-        backgroundColor: '#fff',
-        boxShadow: '0 5px 15px rgba(0,0,0,0.05)',
-        transition: 'all 0.3s ease-in-out'
-      }}
-      // Efeito de levantar o card ao passar o mouse
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-10px)';
-        e.currentTarget.style.boxShadow = '0 15px 30px rgba(0,0,0,0.15)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.boxShadow = '0 5px 15px rgba(0,0,0,0.05)';
-      }}
-    >
-      {/* 🖼️ CONTAINER DA IMAGEM E DOS ÍCONES FLUTUANTES */}
-      <div className="position-relative">
+    <div className="card h-100 premium-card">
+      
+      {/* 🖼️ CONTAINER DA IMAGEM COM EFEITO OVERFLOW ZOOM */}
+      <div className="position-relative overflow-hidden" style={{ borderTopLeftRadius: '23px', borderTopRightRadius: '23px' }}>
         <img 
-          src={cafe.img} 
+          src={cafe?.img} 
           className="card-img-top" 
-          alt={cafe.nome} 
-          style={{ height: '220px', objectFit: 'cover' }} 
+          alt={cafe?.nome} 
+          style={{ 
+            height: '220px', 
+            objectFit: 'cover',
+            width: '100%',
+            transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+          }} 
+          // 🚀 Micro-interação: Zoom suave na foto ao passar o mouse
+          onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.08)'}
+          onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
         />
         
-        {/* ❤️ BOTÃO DE FAVORITO (Coração) */}
+        {/* ❤️ BOTÃO DE FAVORITO ELEGANTE */}
         <button 
           onClick={() => setFavorito(!favorito)}
           className="position-absolute d-flex justify-content-center align-items-center shadow-sm"
           style={{
             top: '15px',
             right: '15px',
-            width: '40px',
-            height: '40px',
+            width: '38px',
+            height: '38px',
             borderRadius: '50%',
-            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            backgroundColor: 'rgba(255, 255, 255, 0.85)',
+            backdropFilter: 'blur(4px)',
             border: 'none',
             cursor: 'pointer',
-            transition: 'transform 0.2s',
+            transition: 'all 0.2s ease',
             zIndex: 10
           }}
-          onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.8)'}
-          onMouseUp={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+          onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
         >
-          {/* Alterna entre coração vazio escuro e coração cheio vermelho */}
           <i className={`bi ${favorito ? 'bi-heart-fill text-danger' : 'bi-heart text-dark'} fs-5`}></i>
         </button>
 
-        {/* 🏷️ TAG DE DESTAQUE (Pega a primeira tag do banco de dados) */}
-        {cafe.tags && cafe.tags[0] && (
+        {/* 🏷️ TAG DE VITRO TRANSLÚCIDO */}
+        {cafe?.tags && cafe.tags[0] && (
           <span 
             className="position-absolute badge shadow-sm" 
             style={{ 
               bottom: '15px', 
               left: '15px', 
               backgroundColor: getCorDaTag(cafe.tags[0]),
-              padding: '8px 12px',
-              fontSize: '0.75rem',
+              color: 'var(--theme-text-main)',
+              backdropFilter: 'blur(8px)',
+              border: '1px solid var(--theme-border)',
+              padding: '8px 14px',
+              borderRadius: '10px',
+              fontSize: '0.7rem',
+              fontWeight: '600',
               letterSpacing: '1px'
             }}
           >
@@ -105,51 +100,60 @@ function CardItem({ cafe, temCupom }) {
         )}
       </div>
 
-      {/* 📝 CONTEÚDO DO CARD (Textos e Botão) */}
-      <div className="card-body d-flex flex-column p-4 text-center">
-        <h5 className="card-title fw-bold mb-2" style={{ color: '#2c1e16' }}>{cafe.nome}</h5>
-        <p className="card-text text-muted small mb-4 flex-grow-1">{cafe.desc}</p>
+      {/* 📝 CONTEÚDO DO CARD ALINHADO À ESQUERDA (Visual muito mais limpo e caro) */}
+      <div className="card-body d-flex flex-column p-4 text-start">
+        <h5 className="card-title fw-bold mb-2" style={{ color: 'var(--theme-text-main)', letterSpacing: '0.5px' }}>
+          {cafe?.nome}
+        </h5>
+        <p className="card-text text-muted small mb-4 flex-grow-1" style={{ lineHeight: '1.5' }}>
+          {cafe?.desc}
+        </p>
         
-        <div className="mt-auto">
-          {/* Exibição Inteligente de Preço */}
-          {temCupom ? (
-            <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
-              <span className="text-muted text-decoration-line-through small">
-                R$ {cafe.preco.toFixed(2)}
-              </span>
-              <span className="fw-bold fs-4" style={{ color: '#27ae60' }}>
-                R$ {cafe.precoFinal.toFixed(2)}
-              </span>
-            </div>
-          ) : (
-            <div className="mb-3">
-              <span className="fw-bold fs-4" style={{ color: '#d4a373' }}>
-                R$ {cafe.preco.toFixed(2)}
-              </span>
-            </div>
-          )}
+        {/* 💸 FILEIRA MODERNA: Preço organizado de um lado, botão elegante do outro */}
+        <div className="mt-auto d-flex align-items-center justify-content-between gap-2 pt-2">
+          <div>
+            {temCupom ? (
+              <div className="d-flex flex-column">
+                <span className="text-decoration-line-through text-muted" style={{ fontSize: '0.75rem' }}>
+                  R$ {precoExibido}
+                </span>
+                <span className="fw-bold fs-4 text-success" style={{ lineHeight: '1.2' }}>
+                  R$ {precoFinalExibido}
+                </span>
+              </div>
+            ) : (
+              <div className="d-flex flex-column">
+                <span className="text-muted text-uppercase" style={{ fontSize: '0.65rem', letterSpacing: '0.5px', fontWeight: '600' }}>Preço</span>
+                <span className="fw-bold fs-4" style={{ color: 'var(--theme-accent)', lineHeight: '1.2' }}>
+                  R$ {precoExibido}
+                </span>
+              </div>
+            )}
+          </div>
           
-          
-         {/* 🔘 BOTÃO COM FEEDBACK VISUAL */}
+          {/* 🔘 BOTÃO PREMIUM QUE SE ADAPTA AO MODO ATUAL */}
           <button 
             onClick={handleAdicionar}
-            className="btn w-100 fw-bold shadow-sm d-flex justify-content-center align-items-center"
+            className="btn fw-bold d-flex justify-content-center align-items-center transition-all"
             style={{ 
-              backgroundColor: adicionado ? '#27ae60' : '#1a1a1a', 
-              color: adicionado ? '#fff' : '#d4a373', 
-              borderRadius: '10px',
-              padding: '10px',
-              transition: 'all 0.3s ease',
-              border: 'none'
+              backgroundColor: adicionado ? '#27ae60' : 'var(--theme-text-main)', 
+              color: adicionado ? '#fff' : 'var(--theme-bg)', 
+              borderRadius: '14px',
+              padding: '10px 18px',
+              fontSize: '0.85rem',
+              border: 'none',
+              minWidth: '115px',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.06)'
             }}
           >
             {adicionado ? (
-              <><i className="bi bi-check-circle me-2 fs-5"></i> Adicionado!</>
+              <><i className="bi bi-check-lg me-1 fs-6"></i> Pronto</>
             ) : (
-              <><i className="bi bi-bag-plus me-2 fs-5"></i> Adicionar</>
+              <><i className="bi bi-bag-plus me-1 fs-6"></i> Pedir</>
             )}
           </button>
         </div>
+
       </div>
     </div>
   );
