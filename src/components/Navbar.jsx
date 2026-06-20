@@ -20,7 +20,7 @@ function Navbar({ aoAlternar, modoGhoul }) {
 
   const btnStyle = {
     backgroundColor: modoGhoul ? 'rgba(255, 77, 77, 0.08)' : 'rgba(212, 163, 115, 0.12)',
-    color: modoGhoul ? '#ff4d4d' : '#d4a373',
+    color: modoGhoul ? '#ff4d4d' : 'var(--theme-accent)',
     backdropFilter: 'blur(5px)',
     border: `1px solid ${modoGhoul ? 'rgba(255,77,77,0.2)' : 'rgba(212,163,115,0.3)'}`
   };
@@ -28,12 +28,11 @@ function Navbar({ aoAlternar, modoGhoul }) {
   return (
     <>
       <nav className={`navbar navbar-expand-lg fixed-top custom-navbar ${modoGhoul ? 'ghoul-mode' : 'human-mode'}`}>
-        {/* Usando align-items-center no container principal para garantir o alinhamento de tudo */}
-        <div className="container px-lg-4 d-flex align-items-center" style={{ transform: 'translateY(15px)' }}>
+        <div className="container-fluid px-4 px-md-5 d-flex align-items-center">
           
           {/* LOGO - Com espaçamento de grife e alinhamento forçado */}
           <Link className="navbar-brand logo-anteiku fw-bold d-flex align-items-center m-0 p-0" to="/" style={{ fontFamily: "'Playfair Display', serif", letterSpacing: '1.5px', fontSize: '1.4rem' }}>
-            <span style={{ color: '#d4a373', marginRight: '6px' }}>ANTEIKU</span>
+            <span style={{ color: 'var(--theme-accent)', marginRight: '6px' }}>ANTEIKU</span>
             <span className={modoGhoul ? 'text-white' : 'text-dark'}>COFFEE</span>
           </Link>
 
@@ -60,6 +59,9 @@ function Navbar({ aoAlternar, modoGhoul }) {
                 <Link className={`nav-link custom-link m-0 ${isAtivo('/Cardapio') ? 'active' : ''} ${modoGhoul ? 'text-light' : 'text-dark'}`} to="/Cardapio">CARDÁPIO</Link>
               </li>
               <li className="nav-item">
+                <Link className={`nav-link custom-link m-0 ${isAtivo('/montador') ? 'active' : ''} ${modoGhoul ? 'text-light' : 'text-dark'}`} to="/montador">MONTADOR</Link>
+              </li>
+              <li className="nav-item">
                 <Link className={`nav-link custom-link m-0 ${isAtivo('/SobreNos') ? 'active' : ''} ${modoGhoul ? 'text-light' : 'text-dark'}`} to="/SobreNos">SOBRE NÓS</Link>
               </li>
               {!usuario && (
@@ -72,12 +74,6 @@ function Navbar({ aoAlternar, modoGhoul }) {
             {/* 2. GRUPO DE AÇÕES (DIREITA) */}
             <div className="d-flex align-items-center justify-content-lg-end gap-3 gap-lg-4">
               
-              {/* BUSCA EXPANSÍVEL (Minimalista) */}
-              <div className="search-box-expandable d-none d-xl-flex">
-                <i className="bi bi-search" style={{ color: modoGhoul ? '#ff4d4d' : '#d4a373' }}></i>
-                <input type="text" placeholder="Buscar sabor..." className={`search-input-expandable ${modoGhoul ? 'text-white' : 'text-dark'}`} />
-              </div>
-
               {/* TOGGLE MODO */}
               <button 
                 onClick={aoAlternar} 
@@ -105,7 +101,7 @@ function Navbar({ aoAlternar, modoGhoul }) {
                 className="btn border-0 position-relative p-0 d-flex align-items-center justify-content-center hover-glow" 
                 data-bs-toggle="offcanvas" 
                 data-bs-target="#menuPedidos"
-                style={{ color: modoGhoul ? '#ff4d4d' : '#d4a373', width: '42px', height: '42px' }}
+                style={{ color: modoGhoul ? '#ff4d4d' : 'var(--theme-accent)', width: '42px', height: '42px' }}
               >
                 <i className="bi bi-bag-fill fs-4"></i>
                 {totalItens > 0 && (
@@ -131,7 +127,7 @@ function Navbar({ aoAlternar, modoGhoul }) {
         
         <div className="offcanvas-header p-4" style={{ borderBottom: `1px solid ${modoGhoul ? 'rgba(255,77,77,0.1)' : 'rgba(212,163,115,0.2)'}` }}>
           <h5 className="offcanvas-title fw-bold" style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.5rem' }}>
-            <i className="bi bi-bag-check-fill me-2" style={{ color: modoGhoul ? '#ff4d4d' : '#d4a373' }}></i>
+            <i className="bi bi-bag-check-fill me-2" style={{ color: modoGhoul ? '#ff4d4d' : 'var(--theme-accent)' }}></i>
             Sua Sacola
           </h5>
           <button type="button" className={`btn-close ${modoGhoul ? 'btn-close-white' : ''} shadow-none`} data-bs-dismiss="offcanvas"></button>

@@ -44,7 +44,7 @@ function PagamentoPix({ valorTotal = 0 }) {
   const { registrarPedido } = useContext(AuthContext);
   const [payloadPix, setPayloadPix] = useState("");
   const [copiado, setCopiado] = useState(false);
-  const { limparCarrinho } = useCart();
+  const { cart, limparCarrinho, cupomAtivo } = useCart();
 
   const [valorFixo] = useState(Number(valorTotal) || 0);
 
@@ -62,7 +62,9 @@ function PagamentoPix({ valorTotal = 0 }) {
       // 2. Chama a nossa função segura em vez da biblioteca que travava o site
       const codigoGerado = gerarPayloadPix(CHAVE, NOME, CIDADE, valorFixo);
       setPayloadPix(codigoGerado);
-      registrarPedido({ valor: valorFixo });
+      
+      // Envia valor, itens do carrinho e o cupom ativo para blindagem no backend
+      registrarPedido({ valor: valorFixo, itens: cart, cupomDigitado: cupomAtivo });
 
       limparCarrinho();
 

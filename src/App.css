@@ -6,15 +6,15 @@
 
 :root {
   /* Modo Humano - Contraste Premium e Cores Aconchegantes */
-  --human-bg: #fcfaf7;
+  --human-bg: #faf8f5; /* Creme suave e moderno */
   --human-bg-card: #ffffff;
-  --human-text-main: #1a0f0a; /* Marrom expresso profundo (Leitura perfeita) */
-  --human-text-muted: #5c4d44; /* Marrom médio descritivo */
-  --human-accent: #b5835a; /* Dourado café elegante */
-  --human-accent-hover: #8f6039;
-  --human-border: rgba(181, 131, 90, 0.15);
+  --human-text-main: #1d130e; /* Espresso profundo (contraste perfeito) */
+  --human-text-muted: #514238; /* Marrom médio escuro (leitura nítida) */
+  --human-accent: #8b5e3c; /* Bronze/Caramelo café rico (contraste profissional) */
+  --human-accent-hover: #6f4223; /* Tom café torrado */
+  --human-border: rgba(139, 94, 60, 0.18);
   --human-shadow: 0 10px 30px rgba(44, 30, 22, 0.04);
-  --human-navbar: rgba(253, 250, 245, 0.85);
+  --human-navbar: rgba(250, 248, 245, 0.9);
 
   /* Modo Ghoul - Dark Thriller Estilo Tóquio Noturna */
   --ghoul-bg: #090505; /* Preto absoluto temperado */
@@ -63,6 +63,9 @@ h1, h2, h3, h4, h5, .navbar-brand {
   --theme-border: var(--human-border);
   --theme-shadow: var(--human-shadow);
   --theme-navbar: var(--human-navbar);
+
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-text-main) !important;
 }
 
 .theme-wrapper-ghoul {
@@ -75,6 +78,31 @@ h1, h2, h3, h4, h5, .navbar-brand {
   --theme-border: var(--ghoul-border);
   --theme-shadow: var(--ghoul-shadow);
   --theme-navbar: var(--ghoul-navbar);
+
+  background-color: var(--theme-bg) !important;
+  color: var(--theme-text-main) !important;
+}
+
+/* Força herança de cores para evitar problemas de contraste no tema */
+.theme-wrapper-human h1, .theme-wrapper-human h2, .theme-wrapper-human h3, 
+.theme-wrapper-human h4, .theme-wrapper-human h5, .theme-wrapper-human h6,
+.theme-wrapper-human span, .theme-wrapper-human p, .theme-wrapper-human label {
+  color: var(--theme-text-main);
+}
+
+.theme-wrapper-ghoul h1, .theme-wrapper-ghoul h2, .theme-wrapper-ghoul h3, 
+.theme-wrapper-ghoul h4, .theme-wrapper-ghoul h5, .theme-wrapper-ghoul h6,
+.theme-wrapper-ghoul span, .theme-wrapper-ghoul p, .theme-wrapper-ghoul label {
+  color: var(--theme-text-main);
+}
+
+/* Especificidade alta para as classes de mutabilidade de texto do Bootstrap */
+.theme-wrapper-human .text-muted, .theme-wrapper-human .card-text.text-muted {
+  color: var(--theme-text-muted) !important;
+}
+
+.theme-wrapper-ghoul .text-muted, .theme-wrapper-ghoul .card-text.text-muted {
+  color: var(--theme-text-muted) !important;
 }
 
 body {
@@ -88,12 +116,23 @@ body {
 
 /* --- ESTILIZAÇÃO DA NAVBAR GLASSMORPHISM (SUA ORIGINAL APERFEIÇOADA) --- */
 .custom-navbar {
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  padding: 1rem 0;
-  backdrop-filter: blur(15px) !important;
-  -webkit-backdrop-filter: blur(15px) !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  border-radius: 0px !important;
+  transform: none !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0.8rem 0 !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
   background: var(--theme-navbar) !important;
+  border: none !important;
   border-bottom: 1px solid var(--theme-border) !important;
+  box-shadow: var(--theme-shadow);
+  z-index: 1030;
 }
 
 .custom-link {

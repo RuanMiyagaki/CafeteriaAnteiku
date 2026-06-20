@@ -95,7 +95,7 @@ function Cardapio() {
         <div className="row g-4 mb-5 justify-content-center">
           {cafesParaMostrar.length > 0 ? (
             cafesParaMostrar.map((cafe) => (
-              <div className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex" key={cafe.id}>
+              <div className="col-6 col-sm-6 col-md-4 col-lg-3 d-flex" key={cafe.id}>
                 <CardItem cafe={cafe} temCupom={temCupom} />
               </div>
             ))

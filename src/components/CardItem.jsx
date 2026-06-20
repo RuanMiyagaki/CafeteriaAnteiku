@@ -43,8 +43,12 @@ function CardItem({ cafe, temCupom }) {
           src={cafe?.img} 
           className="card-img-top" 
           alt={cafe?.nome} 
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500&auto=format&fit=crop";
+          }}
           style={{ 
-            height: '220px', 
+            height: 'clamp(140px, 22vw, 220px)', 
             objectFit: 'cover',
             width: '100%',
             transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
